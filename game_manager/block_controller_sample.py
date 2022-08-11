@@ -59,7 +59,7 @@ class Block_Controller(object):
                 EvalValue = self.calcEvaluationValueSample(board)
                 # update best move
                 if EvalValue > LatestEvalValue:
-                    strategy = (direction0, x0, 1, 1)
+                    strategy = (direction0, x0, 1, 10)
                     LatestEvalValue = EvalValue
 
                 ###test
@@ -201,9 +201,9 @@ class Block_Controller(object):
             absDy += abs(x)
 
         #### maxDy
-        #maxDy = max(BlockMaxY) - min(BlockMaxY)
+        maxDy = max(BlockMaxY) - min(BlockMaxY)
         #### maxHeight
-        #maxHeight = max(BlockMaxY) - fullLines
+        maxHeight = max(BlockMaxY) - fullLines
 
         ## statistical data
         #### stdY
@@ -221,13 +221,13 @@ class Block_Controller(object):
         # calc Evaluation Value
         score = 0
         score = score + fullLines * 10.0           # try to delete line 
-        score = score - nHoles * 1.0               # try not to make hole
-        score = score - nIsolatedBlocks * 1.0      # try not to make isolated block
-        score = score - absDy * 1.0                # try to put block smoothly
-        #score = score - maxDy * 0.3                # maxDy
-        #score = score - maxHeight * 5              # maxHeight
-        #score = score - stdY * 1.0                 # statistical data
-        #score = score - stdDY * 0.01               # statistical data
+        score = score - nHoles * 35.0                # try not to make hole
+        score = score - nIsolatedBlocks * 40.0      # try not to make isolated block
+        score = score - absDy * 5.0                # try to put block smoothly
+        #score = score - maxDy * 3.0                # maxDy
+        score = score - maxHeight * 1.5              # maxHeight
+        #score = score - stdY * 2.0                 # statistical data
+        #score = score - stdDY * 0.1               # statistical data
 
         # print(score, fullLines, nHoles, nIsolatedBlocks, maxHeight, stdY, stdDY, absDy, BlockMaxY)
         return score
