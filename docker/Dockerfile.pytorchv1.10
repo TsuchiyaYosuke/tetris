@@ -67,5 +67,5 @@ RUN  chmod +x /install_editor.sh
 RUN  /install_editor.sh
 
 # install python package
-ADD  requirements_machine_learning.txt  /
-RUN  pip3 install -r /requirements_machine_learning.txt
+ADD  requirements_q_learning.txt  /
+RUN  pip3 install -r /requirements_q_learning.txt

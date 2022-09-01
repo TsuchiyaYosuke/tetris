@@ -101,7 +101,7 @@ class Game_Manager(QMainWindow):
                           self.BlockNumMax)
         if args.game_time >= 0:
             self.game_time = args.game_time
-        if args.mode in ("keyboard", "gamepad", "sample", "train", "predict", "train_sample", "predict_sample", "train_sample2", "predict_sample2"):
+        if args.mode in ("keyboard", "gamepad", "sample", "train", "predict", "train_sample_qlearing", "predict_sample_qlearing", "train_sample2", "predict_sample2"):
             self.mode = args.mode
         if args.drop_interval >= 0:
             self.drop_interval = args.drop_interval
@@ -258,22 +258,22 @@ class Game_Manager(QMainWindow):
                     # sample
                     self.nextMove = BLOCK_CONTROLLER_SAMPLE.GetNextMove(nextMove, GameStatus)
 
-                elif self.mode == "train_sample" or self.mode == "predict_sample":
+                elif self.mode == "train_sample_qlearing" or self.mode == "predict_sample_qlearing":
                     # sample train/predict
                     # import block_controller_train_sample, it's necessary to install pytorch to use.
-                    from machine_learning.block_controller_train_sample import BLOCK_CONTROLLER_TRAIN_SAMPLE as BLOCK_CONTROLLER_TRAIN
-                    self.nextMove = BLOCK_CONTROLLER_TRAIN.GetNextMove(nextMove, GameStatus,yaml_file=self.train_yaml,weight=self.predict_weight)
+                    from q_learning.block_controller_train_sample import BLOCK_CONTROLLER_TRAIN_SAMPLE as BLOCK_CONTROLLER_TRAIN
+                    self.nextMove = BLOCK_CONTROLLER_TRAIN.GetNextMove(nextMove, GameStatus, yaml_file = self.train_yaml, weight = self.predict_weight)
                     
-                elif self.mode == "train_sample2" or self.mode == "predict_sample2":
-                    # sample train/predict
-                    # import block_controller_train_sample, it's necessary to install pytorch to use.
-                    from machine_learning.block_controller_train_sample2 import BLOCK_CONTROLLER_TRAIN_SAMPLE2 as BLOCK_CONTROLLER_TRAIN
-                    self.nextMove = BLOCK_CONTROLLER_TRAIN.GetNextMove(nextMove, GameStatus,yaml_file="config/train_sample2.yaml",weight=self.predict_weight)
+                # elif self.mode == "train_sample2" or self.mode == "predict_sample2":
+                #     # sample train/predict
+                #     # import block_controller_train_sample, it's necessary to install pytorch to use.
+                #     from q_learning.block_controller_train_sample2 import BLOCK_CONTROLLER_TRAIN_SAMPLE2 as BLOCK_CONTROLLER_TRAIN
+                #     self.nextMove = BLOCK_CONTROLLER_TRAIN.GetNextMove(nextMove, GameStatus,yaml_file="config/train_sample2.yaml",weight=self.predict_weight)
                     
                 elif self.mode == "train" or self.mode == "predict":
                     # train/predict
                     # import block_controller_train, it's necessary to install pytorch to use.
-                    from machine_learning.block_controller_train import BLOCK_CONTROLLER_TRAIN
+                    from q_learning.block_controller_train import BLOCK_CONTROLLER_TRAIN
                     self.nextMove = BLOCK_CONTROLLER_TRAIN.GetNextMove(nextMove, GameStatus,yaml_file=self.train_yaml,weight=self.predict_weight)
                 else:
                     self.nextMove = BLOCK_CONTROLLER.GetNextMove(nextMove, GameStatus)

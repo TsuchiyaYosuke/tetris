@@ -81,7 +81,7 @@ def start():
         GAME_LEVEL = args.game_level
     if args.game_time >= 0 or args.game_time == -1:
         GAME_TIME = args.game_time
-    if args.mode in ("keyboard", "gamepad", "sample", "train", "predict", "train_sample", "predict_sample", "train_sample2", "predict_sample2"):
+    if args.mode in ("keyboard", "gamepad", "sample", "train", "predict", "train_sample_qlearing", "predict_sample_qlearing", "train_sample2", "predict_sample2"):
         IS_MODE = args.mode
     if args.random_seed >= 0:
         INPUT_RANDOM_SEED = args.random_seed
