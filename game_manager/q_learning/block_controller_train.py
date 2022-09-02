@@ -44,7 +44,7 @@ class Block_Controller(object):
     def set_parameter(self, yaml_file=None, predict_weight=None):
         self.result_depository = "outputs/"
         self.latest_dir = self.result_depository + "/latest"
-        if self.mode=="train" or self.mode=="train_sample_qlearing" or self.mode=="train_sample2":
+        if self.mode=="train" or self.mode=="train_sample_qlearning" or self.mode=="train_sample2":
             dt = datetime.now()
             self.output_dir = self.result_depository + dt.strftime("%Y-%m-%d-%H-%M-%S")
             os.makedirs(self.output_dir, exist_ok=True)
@@ -196,7 +196,7 @@ class Block_Controller(object):
             self.multi_step_num = config["train"]["multi_step_num"]
             self.MSL = MSL(step_num=self.multi_step_num, gamma=self.gamma)
     def stack_replay_memory(self):
-        if self.mode=="train" or self.mode=="train_sample_qlearing" or self.mode=="train_sample2":
+        if self.mode=="train" or self.mode=="train_sample_qlearning" or self.mode=="train_sample2":
             self.score += self.score_list[5]
             self.episode_memory[-1][1] += self.penalty
             self.episode_memory[-1][3] = True
@@ -211,7 +211,7 @@ class Block_Controller(object):
     
     def update(self):
 
-        if self.mode=="train" or self.mode=="train_sample_qlearing" or self.mode=="train_sample2":
+        if self.mode=="train" or self.mode=="train_sample_qlearning" or self.mode=="train_sample2":
             self.stack_replay_memory()
 
             if len(self.replay_memory) < self.replay_memory_size / 10:
@@ -321,7 +321,7 @@ class Block_Controller(object):
         self.reset_state()
         
     def reset_state(self):
-        if self.mode=="train" or self.mode=="train_sample_qlearing" or self.mode=="train_sample2": 
+        if self.mode=="train" or self.mode=="train_sample_qlearning" or self.mode=="train_sample2": 
             if self.score > self.max_score:
                 torch.save(self.model, "{}/tetris_epoch{}_score{}.pt".format(self.weight_dir,self.epoch,self.score))
                 self.max_score  =  self.score
@@ -481,7 +481,7 @@ class Block_Controller(object):
 
         next_steps =self.get_next_func(curr_backboard, curr_piece_id, curr_shape_class)
         
-        if self.mode=="train" or self.mode=="train_sample_qlearing" or self.mode=="train_sample2":
+        if self.mode=="train" or self.mode=="train_sample_qlearning" or self.mode=="train_sample2":
             epsilon = self.final_epsilon + (max(self.num_decay_epochs - self.epoch, 0) * (
                     self.initial_epsilon - self.final_epsilon) / self.num_decay_epochs)
             u = random()
