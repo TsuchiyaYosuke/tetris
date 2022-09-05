@@ -101,7 +101,7 @@ class Game_Manager(QMainWindow):
                           self.BlockNumMax)
         if args.game_time >= 0:
             self.game_time = args.game_time
-        if args.mode in ("keyboard", "gamepad", "sample", "train", "predict", "train_sample_qlearning", "predict_sample_qlearing", "train_sample2", "predict_sample2"):
+        if args.mode in ("keyboard", "gamepad", "sample", "train", "predict", "train_sample_qlearning", "predict_sample_qlearning", "train_sample2", "predict_sample2"):
             self.mode = args.mode
         if args.drop_interval >= 0:
             self.drop_interval = args.drop_interval
@@ -258,7 +258,7 @@ class Game_Manager(QMainWindow):
                     # sample
                     self.nextMove = BLOCK_CONTROLLER_SAMPLE.GetNextMove(nextMove, GameStatus)
 
-                elif self.mode == "train_sample_qlearning" or self.mode == "predict_sample_qlearing":
+                elif self.mode == "train_sample_qlearning" or self.mode == "predict_sample_qlearning":
                     # sample train/predict
                     # import block_controller_train_sample, it's necessary to install pytorch to use.
                     from q_learning.block_controller_train_sample import BLOCK_CONTROLLER_TRAIN_SAMPLE as BLOCK_CONTROLLER_TRAIN

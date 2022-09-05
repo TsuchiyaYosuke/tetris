@@ -562,7 +562,7 @@ class Block_Controller(object):
             if self.tetrominoes > self.max_tetrominoes:
                 nextMove["option"]["force_reset_field"] = True
             self.state = next_state
-        elif self.mode == "predict" or self.mode == "predict_sample":
+        elif self.mode == "predict" or self.mode == "predict_sample_qlearning":
             self.model.eval()
             next_actions, next_states = zip(*next_steps.items())
             next_states = torch.stack(next_states)
